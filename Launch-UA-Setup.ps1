@@ -14,7 +14,7 @@ param(
     [string]$VMName, # Name of VM to be migrated
 
     [Parameter(Mandatory=$false)]
-    [string]$vcenter = "vcenter01.cabot.local", # Name of vCenter Server
+    [string]$vcenter = "vcenter01.mydomain.local", # Name of vCenter Server
     
     [Parameter(Mandatory=$false)]
     [string]$windowsISO = "windowsserver2012.iso" # Name of vCenter Server    
