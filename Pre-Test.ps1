@@ -3,7 +3,9 @@
 
     Version 1.0
 
-    Run this on Source Hyper-V Host
+    Run this on Management Host
+
+    Designed to store results on local drive of Management Station (requires C:\VMLogs directory)
 
     If the Invoke Command Fails, try to enable WinRM in the VM with the following command "Enable-PSRemoting"
     This will also fail if the VM cannot be reached over the network (i.e. ping <name> fails)
@@ -25,11 +27,13 @@ if($Reboot){
     write-host "Pausing 5 mins."  # this time interval is big enough to allow most VMs to fully boot and be ready for WinRM calls
     Start-Sleep -Seconds 300
 }
+# Path for storing pre-test results
+$vmPath = "C:\VMLogs\$VMname"
 
 $session = New-PSSession $VMName
 
 # collects errors for the last 24 hours and all running services and exports it to .xml files that are used by the Post-Test.ps1 script
-Invoke-Command -Session $session -ScriptBlock { get-eventlog -logname System -EntryType Error -After (get-date).AddDays(-1)} | Export-Clixml .\$($VMName + "pre-event.xml")
-Invoke-Command -Session $session -ScriptBlock { get-Service | ?{$_.Status -eq "Running"}} | Export-Clixml .\$($VMName + "pre-service.xml")
+Invoke-Command -Session $session -ScriptBlock { get-eventlog -logname System -EntryType Error -After (get-date).AddDays(-1)} | Export-Clixml $vmPath\$($VMName + "pre-event.xml")
+Invoke-Command -Session $session -ScriptBlock { get-Service | ?{$_.Status -eq "Running"}} | Export-Clixml $vmPath\$($VMName + "pre-service.xml")
 
 Remove-PSSession -Session $session

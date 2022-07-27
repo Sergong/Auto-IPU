@@ -3,36 +3,20 @@
 
     Version 1.0
 
-    Run this on Destination Hyper-V Host
+    Run this on Management Host
 
-    Designed for VMs running on SMB storage (like Nutanix environments)
+    Designed to store results on local drive of Management Station (requires C:\VMLogs directory)
 
 #>
 param( 
     # Parameter help description
     [Parameter(Mandatory=$true)]
-    [string]$VMName, # Name of VM to be migrated
-
-    [Parameter(Mandatory=$false)]
-    [string]$NAS = "ntnx-dc2cluster.rathbones.net", # Name of Nutanix/SOFS Storage Cluster
-
-    [Parameter(Mandatory=$false)]
-    [string]$Container = "ctr1",  # Name of Nutanix Container/Share
-
-    [Parameter(Mandatory=$false)]
-    [string]$VMSizeFile = ".\Wx_VMSizes.csv", # File with VMName and T-Shirt sizes
-
-    [Parameter(Mandatory=$false)]
-    [string]$VMHost = $env:COMPUTERNAME,  # Destination VMHost
-
-    [Parameter(Mandatory=$false)]
-    [string]$Cluster = "dc2nuxcluster.rathbones.net"  # Destination Cluster
-    
+    [string]$VMName # Name of VM to be migrated    
 )
 
 
-# Paths on Nutanix
-$vmPath = "\\$NAS\$Container\$VMname"
+# Path for storing pre-test results.
+$vmPath = "C:\VMLogs\$VMname"
 
 $preEvents = Import-Clixml $($vmPath + "\" + $VMName +"pre-event.xml")
 $preServices = Import-Clixml $($vmPath +  "\" + $VMName +"pre-service.xml")
