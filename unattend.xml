@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<unattend xmlns="urn:schemas-microsoft-com:unattend">
+    <settings pass="windowsPE">
+        <component name="Microsoft-Windows-International-Core-WinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <SetupUILanguage>
+                <UILanguage>en-US</UILanguage>
+            </SetupUILanguage>
+            <UILanguage>en-US</UILanguage>
+        </component>
+        <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <ImageInstall>
+            <OSImage>
+                <InstallFrom>
+                  <Path>install.wim</Path>
+                  <MetaData wcm:action="add">
+                      <Key>/IMAGE/INDEX</Key>
+                      <Value>2</Value>
+                  </MetaData>
+                </InstallFrom>
+              <InstallTo>
+                  <DiskID>0</DiskID>
+                  <PartitionID>2</PartitionID>
+                </InstallTo>
+            </OSImage>
+        </ImageInstall>
+        <UpgradeData>
+            <Upgrade>true</Upgrade>
+        </UpgradeData>
+        <UserData>
+            <AcceptEula>true</AcceptEula>
+        </UserData>
+        </component>
+    </settings>
+</unattend>
